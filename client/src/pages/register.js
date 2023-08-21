@@ -2,6 +2,8 @@ import React from 'react'
 import './register.css'
 import registerImg from '../images/register.png'
 import logo from '../images/logoSocialSync.png'
+import RegisterForm from '../components/registerForms/RegisterForm'
+
 
 const register = () => {
     return (
@@ -16,7 +18,9 @@ const register = () => {
                     </div>
                 </div>
                 <div className='register--form'>
-                    Create
+                    <h4>JOIN OUR NETWORK</h4>
+                    <RegisterForm />
+                    <p>Already a user ? Sign In</p>
                 </div>
             </div>
         </div>
