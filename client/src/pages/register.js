@@ -2,7 +2,7 @@ import React from 'react'
 import './register.css'
 import registerImg from '../images/register.png'
 import logo from '../images/logoSocialSync.png'
-import RegisterForm from '../components/registerForms/RegisterForm'
+import RegisterForm from '../components/registerForms/registerForm.js'
 
 
 const register = () => {
