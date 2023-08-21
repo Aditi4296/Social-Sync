@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Allerta+Stencil&family=Playfair+Display:wght@700&family=Poppins:wght@300;400&family=Roboto:ital,wght@1,100&display=swap');
 .main-component{
     display: flex;
     background: linear-gradient(180deg, #97FEED 0%, #4190A0 100%);
@@ -72,4 +73,19 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin: 0;
+    margin-top: 10px;
+    font-family: 'Allerta Stencil', sans-serif;
+    font-weight: 400;
+    color: #4494A3;
+}
+.register--form span{
+    color:#61B9BD ;
+}
+.register--form p{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin-top: -20px;
 }

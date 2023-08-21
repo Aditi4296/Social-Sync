@@ -20,7 +20,7 @@ const register = () => {
                 <div className='register--form'>
                     <h4>JOIN OUR NETWORK</h4>
                     <RegisterForm />
-                    <p>Already a user ? Sign In</p>
+                    <p>Already a user ? <span className='bold-style'> Sign In</span></p>
                 </div>
             </div>
         </div>

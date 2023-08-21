@@ -19,11 +19,13 @@
     background-color: #61B9BD;
     color: white;
     width: 250px;
+    border: 1px solid #61B9BD;
 }
 .form-container form button:hover {
     /* border: 1px solid black; */
     /* background: #000000; fallback for old browsers */
     background-color: #E54357;
+    border: 1px solid #E54357;
     /* background: -webkit-linear-gradient(
       to right,
       #434343,
