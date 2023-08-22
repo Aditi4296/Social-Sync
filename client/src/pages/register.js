@@ -3,6 +3,7 @@ import './register.css'
 import registerImg from '../images/register.png'
 import logo from '../images/logoSocialSync.png'
 import RegisterForm from '../components/registerForms/registerForm.js'
+import { Link } from 'react-router-dom'
 
 
 const register = () => {
@@ -20,7 +21,7 @@ const register = () => {
                 <div className='register--form'>
                     <h4>JOIN OUR NETWORK</h4>
                     <RegisterForm />
-                    <p>Already a user ? <span className='bold-style'> Sign In</span></p>
+                    <p>Already a user ? <span className='bold-style register'><Link to="/login">Sign In</Link></span></p>
                 </div>
             </div>
         </div>

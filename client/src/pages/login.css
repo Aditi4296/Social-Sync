@@ -82,3 +82,7 @@
     cursor: pointer;
     margin-top: -15px;
 }
+.login a{
+    color: #61B9BD;
+    text-decoration: none;
+}

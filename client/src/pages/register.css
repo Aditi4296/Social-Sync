@@ -62,7 +62,7 @@
     flex-direction: column;
     align-items: center;
     margin: 0;
-    margin-top: 60px;
+    margin-top: 40px;
     font-family: 'Allerta Stencil', sans-serif;
     font-weight: 400;
     color: #4494A3;
@@ -76,4 +76,8 @@
     justify-content: center;
     cursor: pointer;
     margin-top: -15px;
+}
+.register a{
+    color: #61B9BD;
+    text-decoration: none;
 }
