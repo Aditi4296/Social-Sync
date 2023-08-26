@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-import avatar from '../images/user.png'
+// const avatar = require ('../images/user.png')
 
 const userSchema = new mongoose.Schema({
     fullname: {
@@ -43,7 +43,7 @@ const userSchema = new mongoose.Schema({
     },
     address: {
         type: String,
-        default: { avatar }
+        default: 'https://w7.pngwing.com/pngs/505/761/png-transparent-login-computer-icons-avatar-icon-monochrome-black-silhouette.png'
     },
     story: {
         type: String,

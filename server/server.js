@@ -20,9 +20,8 @@ const connectDb = async () => {
     }
 }
 
-app.get('/', (req, res) => {
-    res.json({ msg: 'Hello' });
-});
+//routes
+app.use('/api', require('./routes/authRouter.js'))
 
 connectDb();
 
