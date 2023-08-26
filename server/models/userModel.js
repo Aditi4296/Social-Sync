@@ -27,7 +27,7 @@ const userSchema = new mongoose.Schema({
     },
     avatar: {
         type: String,
-        default: ''
+        default: 'https://w7.pngwing.com/pngs/505/761/png-transparent-login-computer-icons-avatar-icon-monochrome-black-silhouette.png'
     },
     role: {
         type: String,
@@ -43,7 +43,7 @@ const userSchema = new mongoose.Schema({
     },
     address: {
         type: String,
-        default: 'https://w7.pngwing.com/pngs/505/761/png-transparent-login-computer-icons-avatar-icon-monochrome-black-silhouette.png'
+        default: ''
     },
     story: {
         type: String,
