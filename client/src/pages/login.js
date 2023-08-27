@@ -7,6 +7,11 @@ import { Link } from 'react-router-dom'
 
 
 const login = () => {
+    const initialState = { email: '', password: ''}
+    const [userData, setUserData] = useState(initialState)
+    const { email, password } = userData
+
+    
     return (
         <div className='main-component'>
             <div className="login--div">
