@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import LoginForm from '../components/loginForms/LoginForm'
 import loginImg from '../images/login.png'
 import logo from '../images/logoSocialSync.png'
@@ -7,10 +7,6 @@ import { Link } from 'react-router-dom'
 
 
 const login = () => {
-    const initialState = { email: '', password: ''}
-    const [userData, setUserData] = useState(initialState)
-    const { email, password } = userData
-    
     return (
         <div className='main-component'>
             <div className="login--div">
