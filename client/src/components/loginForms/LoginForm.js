@@ -19,7 +19,7 @@ const LoginForm = () => {
                 <div className="mb-1">
                     <input type="password" name="password" onChange={handleChangeInput} id="password" className='form-control' value={password} placeholder='Password' required /><br />
                 </div>
-                <button type="submit" className="btn btn-primary">Login</button>
+                <button type="submit" className="btn btn-primary" disabled={email && password ? false : true}>Login</button>
             </form>
         </div>
     )
