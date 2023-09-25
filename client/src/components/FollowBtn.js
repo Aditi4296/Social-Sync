@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
-const FollowBtn = ({user}) => {
+const FollowBtn = ({ user }) => {
     const [followed, setFollowed] = useState(false)
 
-    const {} = useSelector()
+    const { } = useSelector(state => state)
 
     const handleFollow = () => {
         setFollowed(true)
@@ -14,20 +14,20 @@ const FollowBtn = ({user}) => {
         setFollowed(false)
     }
 
-    
+
     return (
         <>
-        {
-            followed
-            ? <button className="btn btn-outline-danger"
-            onClick = {handleUnFollow}>
-                Unfollow
-            </button>
-            : <button className="btn btn-outline-info"
-            onClick = {handleFollow}>
-                Follow
-            </button>
-        }
+            {
+                followed
+                    ? <button className="btn btn-outline-danger"
+                        onClick={handleUnFollow}>
+                        Unfollow
+                    </button>
+                    : <button className="btn btn-outline-info"
+                        onClick={handleFollow}>
+                        Follow
+                    </button>
+            }
         </>
     )
 }
