@@ -22,6 +22,7 @@ const connectDb = async () => {
 
 //routes
 app.use('/api', require('./routes/authRouter.js'))
+app.use('/api', require('./routes/userRouter.js'))
 
 connectDb();
 

@@ -1,14 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './loginForm.css'
+import { useNavigate } from 'react-router-dom';
 import { login } from '../../redux/actions/authAction';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const LoginForm = () => {
     const initialState = { email: '', password: '' }
     const [userData, setUserData] = useState(initialState)
     const { email, password } = userData
 
+    const { auth } = useSelector(state => state)
     const dispatch = useDispatch()
+
+    const history = useNavigate()
+
+    useEffect(() => {
+        if(auth.token) history("/")
+    }, [auth.token, history])
 
     const handleChangeInput = e => {
         const { name, value } = e.target
