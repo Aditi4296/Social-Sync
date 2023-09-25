@@ -36,13 +36,13 @@ const Info = () => {
                                 <h2>{user.username}</h2>
                                 {
                                     user._id === auth.user._id
-                                    ? <button className="btn btn-outline-info"
-                                    onClick={() => setOnEdit(true)}>
-                                        Edit Profile
-                                    </button>
-                                    : <FollowBtn />
+                                        ? <button className="btn btn-outline-info"
+                                            onClick={() => setOnEdit(true)}>
+                                            Edit Profile
+                                        </button>
+                                        : <FollowBtn />
                                 }
-                                
+
                             </div>
                             <div className='follow_btn'>
                                 <span className='me-4'>
@@ -52,15 +52,15 @@ const Info = () => {
                                     {user.following.length} Following
                                 </span>
                             </div>
-                            <h6>{user.fullname} {user.mobile}</h6>
+                            <h6>{user.fullname} <span className='text-danger'>{user.mobile}</span></h6>
                             <p className='m-0'>{user.address}</p>
-                            <h6>{user.email}</h6>
+                            <h6 className='m-0'>{user.email}</h6>
                             <a href={user.website} target='_blank' rel="noreferrer">
                                 {user.website}
                             </a>
                             <p>{user.story}</p>
-                        
-                        
+
+
                         </div>
 
                         {

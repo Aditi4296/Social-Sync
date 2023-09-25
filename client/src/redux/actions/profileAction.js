@@ -47,8 +47,18 @@ export const updateProfileUser = ({ userData, avatar, auth }) => async (dispatch
             avatar: avatar ? media[0].url : auth.user.avatar
         }, auth.token)
 
-        console.log(res)
-        dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: false } })
+        dispatch({
+            type: GLOBALTYPES.AUTH,
+            payload: {
+                ...auth,
+                user: {
+                    ...auth.user,
+                    ...userData,
+                    avatar: avatar ? media[0].url : auth.user.avatar,
+                }
+            }
+        })
+        dispatch({ type: GLOBALTYPES.ALERT, payload: { success: res.data.msg } })
 
     } catch (err) {
         dispatch({

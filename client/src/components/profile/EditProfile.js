@@ -9,7 +9,7 @@ const EditProfile = ({ setOnEdit }) => {
         fullname: '', mobile: '', address: '', website: '', story: '', gender: ''
     }
     const [userData, setUserData] = useState(initState)
-    const { fullname, mobile, address, website, story } = userData
+    const { fullname, mobile, address, website, story, gender } = userData
 
     const [avatar, setAvatar] = useState('')
 
@@ -100,7 +100,7 @@ const EditProfile = ({ setOnEdit }) => {
 
                 <label htmlFor="gender">Gender</label>
                 <div className="input-group-prepend px-0 mb-4">
-                    <select name="gender" id="gender"
+                    <select name="gender" id="gender" value={gender}
                         className="custom-select text-capitalize"
                         onChange={handleInput}>
                         <option value="male">Male</option>
