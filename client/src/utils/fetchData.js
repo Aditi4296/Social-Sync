@@ -4,6 +4,7 @@ export const getDataAPI = async (url, token) => {
     const res = await axios.get(`http://localhost:5000/api/${url}`, {
         headers: { Authorization: token }
     })
+    // console.log("I am here")
     return res;
 }
 
