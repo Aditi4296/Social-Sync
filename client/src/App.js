@@ -8,13 +8,14 @@ import Register from './pages/register';
 
 import Alert from './components/alert/Alert.js'
 import Header from './components/header/Header'
+import StatusModal from './components/StatusModal';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { refreshToken } from './redux/actions/authAction';
 
 
 function App() {
-  const { auth } = useSelector(state => state)
+  const { auth, status } = useSelector(state => state)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -27,9 +28,12 @@ function App() {
         <Alert />
         {/* <input type="checkbox" id="theme" /> */}
         {auth.token && <Header />}
+        {status && <StatusModal />}
         <Routes>
           <Route exact path='/' element={auth.token ? <Home /> : <Login />} />
           <Route exact path='/register' element={<Register />} />
+          {/* <Route exact path='/:page' component={PageRender} />
+          <Route exact path='/:page/:id' component={PageRender} /> */}
         </Routes>
         <PrivateRouter exact path='/:page' component={PageRender} />
         <PrivateRouter exact path='/:page/:id' component={PageRender} />
