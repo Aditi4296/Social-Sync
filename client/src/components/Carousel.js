@@ -13,7 +13,7 @@ const { theme } = useSelector(state => state)
         <ol className="carousel-indicators">
             {
                 images.map((img, index) => (
-                    <li key={index} data-target={`#image${id}`} data-slide-to={index} className={isActive(index)} />
+                    <div key={index} data-target={`#image${id}`} data-slide-to={index} className={isActive(index)} />
                 ))
             }
             
