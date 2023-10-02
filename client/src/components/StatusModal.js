@@ -1,14 +1,14 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { GLOBALTYPES } from '../redux/actions/globalTypes'
 import CameraAltIcon from '@mui/icons-material/CameraAlt';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
-import { createPost } from '../redux/actions/postAction';
+import { createPost, updatePost } from '../redux/actions/postAction';
 
 
 const StatusModal = () => {
-    const { auth, theme } = useSelector(state => state)
+    const { auth, theme, status } = useSelector(state => state)
     const dispatch = useDispatch()
 
     const [content, setContent] = useState('')
@@ -75,17 +75,30 @@ const StatusModal = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
         if (images.length === 0)
-            return dispatch({
-                type: GLOBALTYPES.ALERT, payload: { error: "Please add your photos!" }
-            })
+        return dispatch({
+            type: GLOBALTYPES.ALERT, payload: { error: "Please add your photos!" }
+        })
 
-        dispatch(createPost({ content, images, auth }))
+        if(status.onEdit)
+        {
+            dispatch(updatePost({ content, images, auth, status }))
+        }else{
+            dispatch(createPost({ content, images, auth }))
+        }
+        
 
         setContent('')
         setImages([])
         if (tracks) tracks.stop()
         dispatch({ type: GLOBALTYPES.STATUS, payload: false })
     }
+
+    useEffect(() => {
+        if(status.onEdit){
+            setContent(status.content)
+            setImages(status.images)
+        }
+    },[status])
 
     return (
         <div className='status_modal'>
@@ -102,7 +115,10 @@ const StatusModal = () => {
                         {
                             images.map((img, index) => (
                                 <div key={index} id="file_img">
-                                    <img src={img.camera ? img.camera : URL.createObjectURL(img)}
+                                    <img src={
+                                        img.camera 
+                                        ? img.camera 
+                                        : img.url ? img.url : URL.createObjectURL(img)}
                                         alt="images" className="img-thumbnail"
                                         style={{ filter: theme ? 'invert(1)' : 'invert(0)' }}
                                     />
