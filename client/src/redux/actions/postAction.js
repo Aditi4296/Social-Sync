@@ -17,7 +17,7 @@ export const createPost = ({ content, images, auth }) => async dispatch => {
 
         const res = await postDataAPI('posts', { content, images: media }, auth.token)
 
-        dispatch({ type: POST_TYPES.CREATE_POST, payload: {...res.data.newPost, user: auth.user} })
+        dispatch({ type: POST_TYPES.CREATE_POST, payload: { ...res.data.newPost, user: auth.user } })
 
         dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: false } })
     } catch (err) {
@@ -52,7 +52,7 @@ export const updatePost = ({ content, images, auth, status }) => async dispatch 
     const imgNewUrl = images.filter(img => !img.url)
     const imgOldUrl = images.filter(img => img.url)
 
-    if(status.content === content
+    if (status.content === content
         && imgNewUrl.length === 0
         && imgOldUrl.length === status.images.length
     ) return;
@@ -66,6 +66,34 @@ export const updatePost = ({ content, images, auth, status }) => async dispatch 
         dispatch({ type: POST_TYPES.UPDATE_POST, payload: res.data.newPost })
 
         dispatch({ type: GLOBALTYPES.ALERT, payload: { success: res.data.msg } })
+    } catch (err) {
+        dispatch({
+            type: GLOBALTYPES.ALERT,
+            payload: { error: err.response.data.msg }
+        })
+    }
+}
+
+export const likePost = ({ post, auth }) => async (dispatch) => {
+    const newPost = { ...post, likes: [...post.likes, auth.user] }
+    dispatch({ type: POST_TYPES.UPDATE_POST, payload: newPost })
+
+    try {
+        await patchDataAPI(`post/${post._id}/like`, null, auth.token)
+    } catch (err) {
+        dispatch({
+            type: GLOBALTYPES.ALERT,
+            payload: { error: err.response.data.msg }
+        })
+    }
+}
+
+export const unLikePost = ({ post, auth }) => async (dispatch) => {
+    const newPost = { ...post, likes: post.likes.filter(like => like._id !== auth.user._id) }
+    dispatch({ type: POST_TYPES.UPDATE_POST, payload: newPost })
+
+    try {
+        await patchDataAPI(`post/${post._id}/unlike`, null, auth.token)
     } catch (err) {
         dispatch({
             type: GLOBALTYPES.ALERT,

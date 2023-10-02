@@ -12,7 +12,10 @@ const Header = () => {
       <nav className="navbar navbar-expand-lg bg-body-tertiary justify-content-between align-middle nav--style" >
         <div className="container-fluid">
           <Link to="/" className='logo'>
-            <h1 className="navbar-brand text-uppercase p-0 m-0">SocialSync</h1>
+            <h1 className="navbar-brand text-uppercase p-0 m-0"
+              onClick={() => window.scrollTo({ top: 0 })}>
+              SocialSync
+            </h1>
           </Link>
         </div>
         <Search />
