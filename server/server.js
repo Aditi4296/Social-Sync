@@ -24,6 +24,7 @@ const connectDb = async () => {
 app.use('/api', require('./routes/authRouter.js'))
 app.use('/api', require('./routes/userRouter.js'))
 app.use('/api', require('./routes/postRouter.js'))
+app.use('/api', require('./routes/commentRouter.js'))
 
 connectDb();
 
