@@ -27,7 +27,7 @@ const InputComment = ({ children, post }) => {
         <form className="card-footer comment_input" onSubmit={handleSubmit}>
             {children}
             <input type="text" placeholder="Add your comments..."
-                value={content} onChange={e => setContent(e.target.value)} />
+            value={content} onChange={e => setContent(e.target.value)} />
 
             <button type="submit" className="postBtn">
                 Post
