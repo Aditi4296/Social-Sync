@@ -10,15 +10,17 @@ const commentCtrl = {
                 user: req.user._id, content, tag, reply
             })
 
-            await Posts.findOneAndUpdate({ _id: postId }, {
-                $push: { comments: newComment._id }
+            await Posts.findOneAndUpdate({_id: postId}, {
+                $push: {comments: newComment._id}
             }, { new: true })
+
+            console.log(newComment)
 
             await newComment.save()
 
-            res.json({ newComment })
+            res.json({newComment})
         } catch (err) {
-
+            return res.status(500).json({msg: err.message})
         }
     }
 }
