@@ -21,13 +21,13 @@ const InputComment = ({ children, post }) => {
             createdAt: new Date().toISOString()
         }
 
-        dispatch(createComment({ post, newComment, auth }))
+        dispatch(createComment(post, newComment, auth))
     }
     return (
         <form className="card-footer comment_input" onSubmit={handleSubmit}>
             {children}
             <input type="text" placeholder="Add your comments..."
-                value={content} onChange={e => setContent(e.target.value)} />
+            value={content} onChange={e => setContent(e.target.value)} />
 
             <button type="submit" className="postBtn">
                 Post
