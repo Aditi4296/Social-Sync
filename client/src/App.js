@@ -13,6 +13,7 @@ import StatusModal from './components/StatusModal';
 import { useSelector, useDispatch } from 'react-redux';
 import { refreshToken } from './redux/actions/authAction';
 import { getPosts } from './redux/actions/postAction';
+import { getSuggestions } from './redux/actions/suggestionsAction';
 
 
 function App() {
@@ -24,7 +25,10 @@ function App() {
   }, [dispatch])
 
   useEffect(() => {
-    if (auth.token) dispatch(getPosts(auth.token))
+    if (auth.token) {
+      dispatch(getPosts(auth.token))
+      dispatch(getSuggestions(auth.token))
+    }
   }, [dispatch, auth.token])
 
   return (
@@ -40,8 +44,10 @@ function App() {
           {/* <Route exact path='/:page' component={PageRender} />
           <Route exact path='/:page/:id' component={PageRender} /> */}
         </Routes>
-        <PrivateRouter exact path='/:page' component={PageRender} />
-        <PrivateRouter exact path='/:page/:id' component={PageRender} />
+        <div>
+          <PrivateRouter exact path='/:page' component={PageRender} />
+          <PrivateRouter exact path='/:page/:id' component={PageRender} />
+        </div>
       </Router>
     </div>
   );
