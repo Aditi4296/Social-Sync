@@ -158,28 +158,28 @@ const postCtrl = {
     getPostsDicover: async (req, res) => {
         try {
 
-            // const newArr = [...req.user.following, req.user._id]
+            const newArr = [...req.user.following, req.user._id]
 
-            // const num  = req.query.num || 9
+            const num  = req.query.num || 9
 
-            // const posts = await Posts.aggregate([
-            //     { $match: { user : { $nin: newArr } } },
-            //     { $sample: { size: Number(num) } },
-            // ])
+            const posts = await Posts.aggregate([
+                { $match: { user : { $nin: newArr } } },
+                { $sample: { size: Number(num) } },
+            ])
 
-            const features = new APIfeatures(Posts.find({
-                user: { $nin: [...req.user.following, req.user._id] }
-            }), req.query).paginating()
+            // const features = new APIfeatures(Posts.find({
+            //     user: { $nin: [...req.user.following, req.user._id] }
+            // }), req.query).paginating()
 
-            const posts = await features.query.sort('-createdAt')
-                .populate("user likes", "avatar username fullname")
-                .populate({
-                    path: "comments",
-                    populate: {
-                        path: "user likes",
-                        select: "-password"
-                    }
-                })
+            // const posts = await features.query.sort('-createdAt')
+            //     .populate("user likes", "avatar username fullname")
+            //     .populate({
+            //         path: "comments",
+            //         populate: {
+            //             path: "user likes",
+            //             select: "-password"
+            //         }
+            //     })
 
             res.json({
                 msg: 'Success!',
