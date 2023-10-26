@@ -1,12 +1,13 @@
 const Posts = require('../models/postModel')
+const Comments = require('../models/commentModel')
 
 class APIfeatures {
-    constructor(query, queryString){
+    constructor(query, queryString) {
         this.query = query;
         this.queryString = queryString;
     }
 
-    paginating(){
+    paginating() {
         const page = this.queryString.page * 1 || 1
         const limit = this.queryString.limit * 1 || 9
         const skip = (page - 1) * limit
@@ -38,7 +39,7 @@ const postCtrl = {
     },
     getPosts: async (req, res) => {
         try {
-            const features =  new APIfeatures(Posts.find({
+            const features = new APIfeatures(Posts.find({
                 user: [...req.user.following, req.user._id]
             }), req.query).paginating()
 
@@ -66,13 +67,13 @@ const postCtrl = {
             const post = await Posts.findOneAndUpdate({ _id: req.params.id }, {
                 content, images
             }).populate("user likes", "avatar username fullname")
-            .populate({
-                path: "comments",
-                populate: {
-                    path: "user likes",
-                    select: "-password"
-                }
-            })
+                .populate({
+                    path: "comments",
+                    populate: {
+                        path: "user likes",
+                        select: "-password"
+                    }
+                })
 
             res.json({
                 msg: "Updated Post!",
@@ -90,9 +91,11 @@ const postCtrl = {
             const post = await Posts.find({ _id: req.params.id, likes: req.user._id })
             if (post.length > 0) return res.status(400).json({ msg: "You liked this post." })
 
-            await Posts.findOneAndUpdate({ _id: req.params.id }, {
+            const like = await Posts.findOneAndUpdate({ _id: req.params.id }, {
                 $push: { likes: req.user._id }
             }, { new: true })
+
+            if (!like) return res.status(400).json({ msg: 'This post does not exist.' })
 
             res.json({ msg: 'Liked Post!' })
 
@@ -102,9 +105,11 @@ const postCtrl = {
     },
     unLikePost: async (req, res) => {
         try {
-            await Posts.findOneAndUpdate({ _id: req.params.id }, {
+            const like = await Posts.findOneAndUpdate({ _id: req.params.id }, {
                 $pull: { likes: req.user._id }
             }, { new: true })
+
+            if (!like) return res.status(400).json({ msg: 'This post does not exist.' })
 
             res.json({ msg: 'UnLiked Post!' })
 
@@ -114,8 +119,8 @@ const postCtrl = {
     },
     getUserPosts: async (req, res) => {
         try {
-            const features = new APIfeatures(Posts.find({user: req.params.id}), req.query)
-            .paginating()
+            const features = new APIfeatures(Posts.find({ user: req.params.id }), req.query)
+                .paginating()
 
             const posts = await features.query.sort("-createdAt")
 
@@ -125,29 +130,29 @@ const postCtrl = {
             })
 
         } catch (err) {
-            return res.status(500).json({msg: err.message})
+            return res.status(500).json({ msg: err.message })
         }
     },
     getPost: async (req, res) => {
         try {
             const post = await Posts.findById(req.params.id)
-            .populate("user likes", "avatar username fullname followers")
-            .populate({
-                path: "comments",
-                populate: {
-                    path: "user likes",
-                    select: "-password"
-                }
-            })
+                .populate("user likes", "avatar username fullname followers")
+                .populate({
+                    path: "comments",
+                    populate: {
+                        path: "user likes",
+                        select: "-password"
+                    }
+                })
 
-            if(!post) return res.status(400).json({msg: 'This post does not exist.'})
+            if (!post) return res.status(400).json({ msg: 'This post does not exist.' })
 
             res.json({
                 post
             })
 
         } catch (err) {
-            return res.status(500).json({msg: err.message})
+            return res.status(500).json({ msg: err.message })
         }
     },
     getPostsDicover: async (req, res) => {
@@ -163,18 +168,18 @@ const postCtrl = {
             // ])
 
             const features = new APIfeatures(Posts.find({
-                user: {$nin: [...req.user.following, req.user._id]}
+                user: { $nin: [...req.user.following, req.user._id] }
             }), req.query).paginating()
 
             const posts = await features.query.sort('-createdAt')
-            .populate("user likes", "avatar username fullname")
-            .populate({
-                path: "comments",
-                populate: {
-                    path: "user likes",
-                    select: "-password"
-                }
-            })
+                .populate("user likes", "avatar username fullname")
+                .populate({
+                    path: "comments",
+                    populate: {
+                        path: "user likes",
+                        select: "-password"
+                    }
+                })
 
             res.json({
                 msg: 'Success!',
@@ -183,7 +188,24 @@ const postCtrl = {
             })
 
         } catch (err) {
-            return res.status(500).json({msg: err.message})
+            return res.status(500).json({ msg: err.message })
+        }
+    },
+    deletePost: async (req, res) => {
+        try {
+            const post = await Posts.findOneAndDelete({ _id: req.params.id, user: req.user._id })
+            await Comments.deleteMany({ _id: { $in: post.comments } })
+
+            res.json({
+                msg: 'Deleted Post!',
+                newPost: {
+                    ...post,
+                    user: req.user
+                }
+            })
+
+        } catch (err) {
+            return res.status(500).json({ msg: err.message })
         }
     },
 }

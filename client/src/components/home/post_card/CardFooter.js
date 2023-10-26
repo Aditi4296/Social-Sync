@@ -7,12 +7,16 @@ import BookmarkBorderRoundedIcon from '@mui/icons-material/BookmarkBorderRounded
 import LikeButton from '../../LikeButton';
 import { useSelector, useDispatch } from 'react-redux';
 import { likePost, unLikePost } from '../../../redux/actions/postAction';
+import ShareModal from '../../ShareModal'
+import { BASE_URL } from '../../../utils/config'
 
 const CardFooter = ({ post }) => {
     const [isLike, setIsLike] = useState(false)
     const [loadLike, setLoadLike] = useState(false)
 
-    const { auth } = useSelector(state => state)
+    const [isShare, setIsShare] = useState(false)
+
+    const { auth, theme } = useSelector(state => state)
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -49,7 +53,7 @@ const CardFooter = ({ post }) => {
                     <Link to={`/post/${post._id}`} className="text-dark">
                         <ChatBubbleOutlineRoundedIcon className="i" />
                     </Link>
-                    <img src={Send} alt="Send" />
+                    <img src={Send} alt="Send" onClick={() => setIsShare(!isShare)} />
                 </div>
 
                 <BookmarkBorderRoundedIcon className="i" />
@@ -63,6 +67,9 @@ const CardFooter = ({ post }) => {
                     {post.comments.length} comments
                 </h6>
             </div>
+            {
+                isShare && <ShareModal url={`${BASE_URL}/post/${post._id}`} theme={theme} />
+            }
         </div>
     )
 }
